@@ -1,0 +1,52 @@
+{
+    "status": true,
+    "data": {
+        "pagination": {
+            "page": 1,
+            "limit": 10,
+            "total": 12
+        },
+        "users": [
+            {
+                "name": "Sai",
+                "designation": "UX Engineer",
+                "mobile": 987654356,
+                "email": "sai@sai.com",
+                "joinedDate": "26-06-1995",
+                "city": "Rajahmundry",
+                "room": 201,
+                "picture": "https://placeimg.com/640/480/any"
+            },
+            {
+                "name": "Sai",
+                "designation": "UX Engineer",
+                "mobile": 987654356,
+                "email": "sai@sai.com",
+                "joinedDate": "26-06-1995",
+                "city": "Rajahmundry",
+                "room": 201,
+                "picture": "https://placeimg.com/640/480/any"
+            },
+            {
+                "name": "Sai",
+                "designation": "UX Engineer",
+                "mobile": 987654356,
+                "email": "sai@sai.com",
+                "joinedDate": "26-06-1995",
+                "city": "Rajahmundry",
+                "room": 201,
+                "picture": "https://placeimg.com/640/480/any"
+            },
+            {
+                "name": "Sai",
+                "designation": "UX Engineer",
+                "mobile": 987654356,
+                "email": "sai@sai.com",
+                "joinedDate": "26-06-1995",
+                "city": "Rajahmundry",
+                "room": 201,
+                "picture": "https://placeimg.com/640/480/any"
+            }
+        ]
+    }
+}

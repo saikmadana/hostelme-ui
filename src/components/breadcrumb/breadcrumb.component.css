@@ -1,0 +1,14 @@
+.breadcrumb__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+}
+.breadcrumb__item {
+    display: flex;
+    margin-right: 5px;
+}
+.label {
+    margin-right: 5px;
+}
