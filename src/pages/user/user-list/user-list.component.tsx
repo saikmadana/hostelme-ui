@@ -4,9 +4,18 @@ import UserCard from "../../../components/user-card/user-card.component";
 import { BreadcrumbModel } from "../../../models/breadcrumb.model";
 import Breadcrumb from "../../../components/breadcrumb/breadcrumb.component";
 import "./user-list.component.css";
+import { makeAPIrequest, METHODS } from "../../../services/http.service";
+import { httpPayload } from "../../../models/http-payload.model";
+import { paginationModel } from "../../../models/pagination.model";
+import { Paginator } from 'primereact/paginator';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 interface UserListState {
-  users: Array<UserCardModel>
+  users: Array<UserCardModel>;
+  first: number;
+  rows: number;
 };
 
 export default class UserList extends Component<{}, UserListState> {
@@ -17,9 +26,18 @@ export default class UserList extends Component<{}, UserListState> {
   }
 
   state: UserListState = {
-    users: []
+    users: [],
+    first: 0,
+    rows: 20,
+
   }
   breadcrumbData: Array<BreadcrumbModel> = [];
+
+  paginationData: paginationModel = {
+    page: 1,
+    limit: 20,
+    totalItems: 100
+  }
 
   prepareBreadcrumbData() {
     this.breadcrumbData = [{
@@ -29,26 +47,23 @@ export default class UserList extends Component<{}, UserListState> {
     }]
   }
 
-  componentDidMount() {
-    fetch("json/users.json")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          this.setState({
-            users: result.data.users
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          console.log(error);
-          this.setState({
-            users: []
-          });
-        }
-      );
+  async componentDidMount() { 
+    let payload: httpPayload = {
+      path: "user",
+      method: METHODS.GET
+    }
+
+    try {
+      let result = await makeAPIrequest(payload);
+      this.setState({
+        users: result.data.users
+      });
+    } catch(err) {
+      // console.error(err, "Error in getting users data");
+      this.setState({
+        users: []
+      });
+    }
   }
 
   render() {
@@ -59,11 +74,12 @@ export default class UserList extends Component<{}, UserListState> {
       </div>
       <div>
         {
-          this.state.users.map((user) => {
-            return <UserCard {...user} />
+          this.state.users.map((user, index) => {
+            return <UserCard key={index} {...user} />
           })
         }
       </div>
+      <Paginator first={this.state.first} totalRecords={120} rows={this.state.rows} onPageChange={(e) => this.setState({first: e.first})}></Paginator>
       </>
     );
   }

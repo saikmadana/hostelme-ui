@@ -10,6 +10,7 @@ export const StyledMenu = styled.nav`
   position: absolute;
   top: 100%;
   right: 0;
+  z-index: 1;
   transition: transform 0.3s ease-in-out;
   -webkit-box-shadow: 0px 3px 5px 2px rgba(51,51,51,0.3);
 	-moz-box-shadow: 0px 3px 5px 2px rgba(51,51,51,0.3);
