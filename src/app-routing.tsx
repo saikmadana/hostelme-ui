@@ -21,13 +21,15 @@ export default function AppRouting() {
 
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-                <Switch>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/signup" component={Signup} />
-                    <Route path="/users" component={UserList} />
-                    <Route path="/" component={Home} />
-                    <AuthenticatedRoute path="/data" component={Data} />
-                </Switch>
+                <div className="common-body-padding">
+                    <Switch>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/users" component={UserList} />
+                        <Route path="/" component={Home} />
+                        <AuthenticatedRoute path="/data" component={Data} />
+                    </Switch>
+                </div>
             </div>
         </Router>
     );
@@ -41,16 +43,16 @@ function Signup() {
     return <h2>Signup</h2>;
 }
 function Home() {
-    return <h2>
+    return <div>
     <ThemeProvider theme={defaultTheme}>
       <>
         <GlobalStyles />
         <div>
-          <h1>Welome to Home</h1>
+          <h2>Welome to Home</h2>
         </div>
       </>
     </ThemeProvider>
-    </h2>;
+    </div>;
 }
 function Data() {
     return <h2>Data</h2>;

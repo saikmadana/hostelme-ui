@@ -13,6 +13,7 @@
 .action {
     margin-left: 10px;
     cursor: pointer;
+    width: 16px;
 }
 .action.menu {
     position: relative;
