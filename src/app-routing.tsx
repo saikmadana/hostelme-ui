@@ -62,11 +62,11 @@ interface AuthProps {
 };
 class AuthenticatedRoute extends Component<AuthProps, {}> {
     render() {
-            if(1 !== 1) {
-                return <Route {...this.props} />
-            } else {
+            // if(1 !== 1) {
+            //     return <Route {...this.props} />
+            // } else {
                 return <Redirect to="/" />
-            }
+            // }
         // <div>Hi</div>
     }
 }
