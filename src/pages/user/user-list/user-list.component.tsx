@@ -16,6 +16,7 @@ interface UserListState {
   users: Array<UserCardModel>;
   first: number;
   rows: number;
+  totalItems: number;
 };
 
 export default class UserList extends Component<{}, UserListState> {
@@ -28,22 +29,20 @@ export default class UserList extends Component<{}, UserListState> {
   state: UserListState = {
     users: [],
     first: 0,
-    rows: 20,
-
+    rows: 0,
+    totalItems: 0
   }
   breadcrumbData: Array<BreadcrumbModel> = [];
 
   paginationData: paginationModel = {
     page: 1,
-    limit: 20,
-    totalItems: 100
+    limit: 10,
+    totalItems: 10
   }
 
   prepareBreadcrumbData() {
     this.breadcrumbData = [{
       label: "Users"
-    }, {
-      label: "Details"
     }]
   }
 
@@ -56,10 +55,12 @@ export default class UserList extends Component<{}, UserListState> {
     try {
       let result = await makeAPIrequest(payload);
       this.setState({
-        users: result.data.users
+        users: result.data.users,
+        totalItems: result.data.pagination.total,
+        rows: result.data.pagination.limit
       });
     } catch(err) {
-      // console.error(err, "Error in getting users data");
+      console.error(err, "Error in getting users data");
       this.setState({
         users: []
       });
@@ -79,7 +80,7 @@ export default class UserList extends Component<{}, UserListState> {
           })
         }
       </div>
-      <Paginator first={this.state.first} totalRecords={120} rows={this.state.rows} onPageChange={(e) => this.setState({first: e.first})}></Paginator>
+      <Paginator first={this.state.first} totalRecords={this.state.totalItems} rows={this.state.rows} onPageChange={(e) => this.setState({first: e.first})}></Paginator>
       </>
     );
   }

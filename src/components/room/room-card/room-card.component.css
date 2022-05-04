@@ -1,0 +1,38 @@
+.room-prop--name {
+    font-weight: bold;
+    color: darkred;
+}
+
+.room-card--section {
+    display: inline-block;
+    margin: 0 20px 20px 0;
+
+}
+
+.room-card {
+    border: 2px solid rebeccapurple;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.room-card--prop:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.room-prop--value {
+    font-style: italic;
+    color: darkslategrey;
+}
+
+.room-card--img {
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 1px solid rebeccapurple;
+}
+
+.room-card--img-val {
+    max-width: 100%;
+    max-height: 100%;
+}
