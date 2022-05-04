@@ -18,4 +18,9 @@ export const GlobalStyles = createGlobalStyle`
     // justify-content: center;
     // text-rendering: optimizeLegibility;
   }
+  .restrict-width-inner {
+    margin: 0 auto;
+    max-width: 1366px;
+    padding: 10px; // it should be selective
+  }
   `

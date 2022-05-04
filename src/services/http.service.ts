@@ -1,7 +1,8 @@
 import { httpPayload } from "../models/http-payload.model";
 
 const API: any = {
-    user: "users.json"
+    user: "users.json",
+    room: "room"
 }
 
 export const METHODS = {
@@ -13,8 +14,9 @@ export const METHODS = {
 
 const serverUrl = "json";
 
-export const getAPIUrl = (path: string): string => {
-    return `${serverUrl}/${API[path]}`;
+export const getAPIUrl = (path: string, local?: boolean): string => {
+    let server = local ? "http://localhost:3000/api" : serverUrl
+    return `${server}/${API[path]}`;
 }
 
 export const getMethod = (method: string): string => {
@@ -35,7 +37,7 @@ export const getBody = (payload: httpPayload): any | null => {
 
 export const makeAPIrequest = async (payload: httpPayload) => {
     try {
-        const response = await fetch(getAPIUrl(payload.path), {
+        const response = await fetch(getAPIUrl(payload.path, payload.local), {
             method: getMethod(payload.method),
             headers: getHeaders(),
             body: getBody(payload)

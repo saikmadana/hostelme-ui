@@ -1,97 +1,55 @@
-import React, { Component, createRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from 'react';
 import "./header.component.css";
 import logo from "../../assets/images/logo.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
-import Menu from "../header-menu/header-menu";
-
+import { faBell, faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
+import { Menu } from 'primereact/menu';
+import { useHistory } from 'react-router-dom';
 
 interface HeaderProps {
 	message: string
 };
 
-interface HeaderState {
-	showMenu: boolean
-};
 
+export const Header = ({ message = 'Hello There!' }: HeaderProps) => {
 
-export default class Header extends Component<HeaderProps, HeaderState> {
-	wrapperRef: any;
-	setWrapperRef: any;
-	constructor(props: HeaderProps) {
-		super(props);
+	let menu: any = useRef(null);
+	const history = useHistory();
 
-		// setTimeout(() => {
-			this.wrapperRef = React.createRef()
-		// }, 2000)
-        // this.setWrapperRef = this.setWrapperRef.bind(this);
-        // this.handleClickOutside = this.handleClickOutside.bind(this);
+	const items = [
+		{ label: 'Users', icon: '', command: () => history.push("/users") },
+		{ label: 'Rooms', icon: '', command: () => history.push("/rooms") }
+	];
+
+	const showMenuCon = (event: any) => {
+		menu.current.toggle(event);
 	}
 
-	componentDidUpdate() {}
+	return (
+		<section className="header">
+			<div className="logo">
+				<img src={logo} alt="logo" />
+			</div>
 
-	componentDidMount(){
-		document.addEventListener('mousedown', this.handleClickOutside);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-
-	/**
-     * Alert if clicked on outside of element
-     */
-	 handleClickOutside(event: any) {
-        if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
-            alert('You clicked outside of me!');
-        }
-    }
-
-	static defaultProps = {
-		message: 'Hello everyone!'
-	}
-
-	state: HeaderState = {
-		showMenu: false
-	};
-
-
-	showMenu() {
-		this.setState({
-			showMenu: (!this.state.showMenu)
-		});
-	}
-
-	render() {
-		return (
-			<section className="header common-body-padding">
-				<div className="logo">
-					<img src={logo} alt="logo" />
+			<div>{message}</div>
+			
+			<div className="actions">
+				<div className="action search">
+					<FontAwesomeIcon icon={faSearch} />
 				</div>
-				<div className="actions">
-					<div className="action search">
-						<FontAwesomeIcon size='1x' icon={faSearch} />
-					</div>
-					<div className="action notifications">
-						<span>
-							<FontAwesomeIcon size='1x' icon={faBell} />
-						</span>
-					</div>
-					<div className="action menu">
-						<span ref={this.wrapperRef} onClick={() => this.showMenu()}>
-							{this.state.showMenu && <FontAwesomeIcon size='1x' icon={faTimes} />}
-							{!this.state.showMenu && <FontAwesomeIcon size='1x' icon={faBars} />}
-						</span>
-						{this.state.showMenu &&
-							<div>
-								<Menu closeMenu={() => this.showMenu()}/>
-							</div>
-						}
-					</div>
+				<div className="action notifications">
+					<span>
+						<FontAwesomeIcon icon={faBell} />
+					</span>
 				</div>
-			</section>
-		);
-	}
+				<div className="action menu">
+					<span aria-controls="popup_menu" aria-haspopup onClick={(event) => showMenuCon(event)} >
+						<FontAwesomeIcon icon={faBars} />
+					</span>
+					<Menu model={items} popup ref={menu} id="popup_menu"/>
+				</div>
+			</div>
+		</section>
+	);
 
 }

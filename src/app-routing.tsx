@@ -5,31 +5,28 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
-import Header from "./components/header/header.component";
+import { Header } from "./components/header/header.component";
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './styles/global';
 import { defaultTheme } from './styles/theme';
 import UserList from "./pages/user/user-list/user-list.component";
+import { RoomList } from "./pages/room/room-list/room-list.component";
 
 export default function AppRouting() {
     return (
         <Router>
             <div>
                 <nav>                   
-                    <Header message="hi"/>
+                    <Header message="Hi, Welome to HostelMe"/>
                 </nav>
-
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-                <div className="common-body-padding">
-                    <Switch>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/users" component={UserList} />
-                        <Route path="/" component={Home} />
-                        <AuthenticatedRoute path="/data" component={Data} />
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/users" component={UserList} />
+                    <Route path="/rooms" component={RoomList} />
+                    <Route path="/" component={Home} />
+                    <AuthenticatedRoute path="/data" component={Data} />
+                </Switch>
             </div>
         </Router>
     );
