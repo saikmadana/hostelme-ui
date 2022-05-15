@@ -1,30 +1,16 @@
-name: Build and Test on PR
+name: "Build and Test on PR"
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on pull request event but only for the master, dev branches
   pull_request:
-    branches: [ master, dev ]
+    branches: [master, dev]
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "test_pr"
-  test_pr:
-    # The type of runner that the job will run on
+  test_pull_request:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
-      # Checks-out your repository under $GITHUB_WORKSPACE and Setup Node
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: 14
-
-      # Runs a set of commands using the runners shell
-      - name: Install & Test
-        run: |
-          - run: npm install
-          - run: npm test
+          node-version: 12
+      - run: npm ci
+      - run: npm test
