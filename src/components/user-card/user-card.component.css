@@ -3,10 +3,14 @@
     align-items: center;
     justify-content: flex-start;
     padding: 20px;
-    background: var(--ternary-color);
-    border: 1px solid var(--secondary-color);
+    background: var(--secondary-bg);
+    border: 1px solid var(--secondary-text);
+    color: var(--secondary-text);
     position: relative;
     margin: 10px 0;
+}
+.user__card:hover {
+    box-shadow: 0px 3px 5px 2px rgba(51,51,51,0.3); 
 }
 .user__card:first-child {
     margin-top: 0;
@@ -19,6 +23,10 @@
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
+}
+.user__card--picture .picture > img{
+    height: 100%;
+    max-width: 100%;
 }
 .card__item {
     margin-right: 20px;

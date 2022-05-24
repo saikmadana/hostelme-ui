@@ -12,7 +12,7 @@ export default class Breadcrumb extends Component<BreadcrumbInterface, {}> {
 
     render() {
         return (
-            <div className="breadcrumb__wrapper">
+            <div className="breadcrumb__wrapper restrict-width-inner">
             {
                 this.props.breadcrumbItems.map((item, index) => {
                     return <div key={index} className="breadcrumb__item">

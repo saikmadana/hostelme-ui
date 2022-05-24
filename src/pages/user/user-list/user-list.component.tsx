@@ -4,7 +4,7 @@ import UserCard from "../../../components/user-card/user-card.component";
 import { BreadcrumbModel } from "../../../models/breadcrumb.model";
 import Breadcrumb from "../../../components/breadcrumb/breadcrumb.component";
 import "./user-list.component.css";
-import { makeAPIrequest, METHODS } from "../../../services/http.service";
+import { makeAPIrequest, METHODS } from "../../../utils/http.util";
 import { httpPayload } from "../../../models/http-payload.model";
 import { paginationModel } from "../../../models/pagination.model";
 import { Paginator } from 'primereact/paginator';
@@ -73,14 +73,16 @@ export default class UserList extends Component<{}, UserListState> {
       <div className="breadcrumb__section">
         <Breadcrumb breadcrumbItems={this.breadcrumbData}/>
       </div>
-      <div>
-        {
-          this.state.users.map((user, index) => {
-            return <UserCard key={index} {...user} />
-          })
-        }
-      </div>
-      <Paginator first={this.state.first} totalRecords={this.state.totalItems} rows={this.state.rows} onPageChange={(e) => this.setState({first: e.first})}></Paginator>
+      <main className="main__section restrict-width-inner">
+        <div>
+          {
+            this.state.users.map((user, index) => {
+              return <UserCard key={index} {...user} />
+            })
+          }
+        </div>
+        <Paginator first={this.state.first} totalRecords={this.state.totalItems} rows={this.state.rows} onPageChange={(e) => this.setState({first: e.first})}></Paginator>
+      </main>
       </>
     );
   }
