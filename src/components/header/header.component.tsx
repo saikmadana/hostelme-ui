@@ -16,6 +16,8 @@ export const Header = ({ message = 'Hello There!' }: HeaderProps) => {
 	let menu: any = useRef(null);
 	const history = useHistory();
 
+	const HOME_PATH = "/";
+
 	const items = [
 		{ label: 'Users', icon: '', command: () => history.push("/users") },
 		{ label: 'Rooms', icon: '', command: () => history.push("/rooms") }
@@ -25,28 +27,36 @@ export const Header = ({ message = 'Hello There!' }: HeaderProps) => {
 		menu.current.toggle(event);
 	}
 
-	return (
-		<section className="header">
-			<div className="logo">
-				<img src={logo} alt="logo" />
-			</div>
+	const navigateToHome = () => {
+		if(history.location.pathname !== HOME_PATH) {
+			history.push(HOME_PATH);
+		}
+	}
 
-			<div>{message}</div>
-			
-			<div className="actions">
-				<div className="action search">
-					<FontAwesomeIcon icon={faSearch} />
+	return (
+		<section className='header-wrapper'>
+			<div className="header-content restrict-width-inner">
+				<div className="logo" onClick={navigateToHome}>
+					<img src={logo} alt="logo" />
 				</div>
-				<div className="action notifications">
-					<span>
-						<FontAwesomeIcon icon={faBell} />
-					</span>
-				</div>
-				<div className="action menu">
-					<span aria-controls="popup_menu" aria-haspopup onClick={(event) => showMenuCon(event)} >
-						<FontAwesomeIcon icon={faBars} />
-					</span>
-					<Menu model={items} popup ref={menu} id="popup_menu"/>
+
+				<div>{message}</div>
+				
+				<div className="actions">
+					<div className="action search">
+						<FontAwesomeIcon icon={faSearch} />
+					</div>
+					<div className="action notifications">
+						<span>
+							<FontAwesomeIcon icon={faBell} />
+						</span>
+					</div>
+					<div className="action menu">
+						<span aria-controls="popup_menu" aria-haspopup onClick={(event) => showMenuCon(event)} >
+							<FontAwesomeIcon icon={faBars} />
+						</span>
+						<Menu model={items} popup ref={menu} id="popup_menu"/>
+					</div>
 				</div>
 			</div>
 		</section>

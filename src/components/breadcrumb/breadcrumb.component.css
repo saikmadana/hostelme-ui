@@ -2,12 +2,27 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px;
-    border: 1px solid var(--border-color);
 }
 .breadcrumb__item {
     display: flex;
     margin-right: 5px;
+    padding: 5px 0 5px 10px;
+    position: relative;
+    background: var(--primary-bg);
+    color: var(--primary-text);
+}
+.breadcrumb__item::after{
+    content: "";
+    display: block;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-left-color: var(--primary-bg);
 }
 .label {
     margin-right: 5px;

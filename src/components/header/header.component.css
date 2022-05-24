@@ -1,9 +1,12 @@
-.header {
+.header-wrapper {
+    background-color: var(--primary-bg);
+}
+.header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background-color: azure;
+    color: var(--primary-text);
 }
 
 .actions {

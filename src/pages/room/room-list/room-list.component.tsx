@@ -3,7 +3,7 @@ import Breadcrumb from "../../../components/breadcrumb/breadcrumb.component";
 import { RoomCard } from "../../../components/room/room-card/room-card.component";
 import { BreadcrumbModel } from "../../../models/breadcrumb.model";
 import { httpPayload } from "../../../models/http-payload.model";
-import { makeAPIrequest, METHODS } from "../../../services/http.service";
+import { makeAPIrequest, METHODS } from "../../../utils/http.util";
 import "./room-list.component.css"
 
 type RoomProps = {

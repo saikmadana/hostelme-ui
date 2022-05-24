@@ -8,6 +8,14 @@ export const GlobalStyles = createGlobalStyle`
   *, *::after, *::before {
     box-sizing: border-box;
   }
+  :root {
+    --primary-bg: #3b4a4d;
+    --secondary-bg: #ffffff;
+    --primary-text: #f7f8fa;
+    --secondary-text: #3b4a4d;
+    --highlight-bg: #e9ecef;
+    --highlight-text: #ff9393;
+  }
   body {
     // align-items: center;
     // background: ${({ theme }) => theme.primaryDark};
@@ -21,6 +29,7 @@ export const GlobalStyles = createGlobalStyle`
   .restrict-width-inner {
     margin: 0 auto;
     max-width: 1366px;
-    padding: 10px; // it should be selective
+    padding-left: 10px;
+    padding-right: 10px;
   }
   `
