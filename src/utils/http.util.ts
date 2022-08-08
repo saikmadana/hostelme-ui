@@ -1,7 +1,7 @@
 import { httpPayload } from "../models/http-payload.model";
 
 const API: any = {
-    user: "users.json",
+    user: "users",
     room: "room"
 }
 
@@ -12,7 +12,7 @@ export const METHODS = {
     DELETE: "DELETE"
 }
 
-const serverUrl = "json";
+const serverUrl = "https://hostelme-node-backend.herokuapp.com/api";
 
 export const getAPIUrl = (path: string, local?: boolean): string => {
     let server = local ? "http://localhost:3000/api" : serverUrl
@@ -40,7 +40,7 @@ export const makeAPIrequest = async (payload: httpPayload) => {
         const response = await fetch(getAPIUrl(payload.path, payload.local), {
             method: getMethod(payload.method),
             headers: getHeaders(),
-            body: getBody(payload)
+            body: JSON.stringify(getBody(payload))
         });
         return response.json();
     } catch(err) {

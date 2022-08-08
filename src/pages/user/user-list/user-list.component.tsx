@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { UserCardModel } from "../../../models/user.model";
 import UserCard from "../../../components/user-card/user-card.component";
 import { BreadcrumbModel } from "../../../models/breadcrumb.model";
@@ -12,78 +12,86 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
-interface UserListState {
-  users: Array<UserCardModel>;
+interface IUserListState {
+  users: UserCardModel[];
   first: number;
   rows: number;
   totalItems: number;
 };
 
-export default class UserList extends Component<{}, UserListState> {
+export const UserList = () => {
 
-  constructor(props: any) {
-    super(props);
-    this.prepareBreadcrumbData();
-  }
 
-  state: UserListState = {
+  const initialUserState = {
     users: [],
     first: 0,
     rows: 0,
     totalItems: 0
-  }
-  breadcrumbData: Array<BreadcrumbModel> = [];
+  };
 
-  paginationData: paginationModel = {
+  const [userList, setUserList] = useState<IUserListState>(initialUserState);
+
+  const breadcrumbData: Array<BreadcrumbModel> = [{ label: "Users" }];
+
+  let paginationData: paginationModel = {
     page: 1,
     limit: 10,
     totalItems: 10
   }
 
-  prepareBreadcrumbData() {
-    this.breadcrumbData = [{
-      label: "Users"
-    }]
-  }
+  useEffect(() => {
+    fetchUserList({
+      page: 1,
+      limit: 10
+    })
+  }, []);
 
-  async componentDidMount() { 
+  const fetchUserList = async (data: any) => {
     let payload: httpPayload = {
       path: "user",
-      method: METHODS.GET
+      method: METHODS.POST,
+      body: data
     }
 
     try {
       let result = await makeAPIrequest(payload);
-      this.setState({
+      setUserList({
         users: result.data.users,
         totalItems: result.data.pagination.total,
-        rows: result.data.pagination.limit
+        rows: result.data.pagination.limit,
+        first: result.data.pagination.page * (result.data.pagination.limit - 1)
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err, "Error in getting users data");
-      this.setState({
-        users: []
-      });
+      setUserList(initialUserState);
     }
   }
 
-  render() {
-    return (
-      <>
+  const pageChange = (e: any) => {
+    fetchUserList({
+      page: (e.page) + 1,
+      limit: 10
+    })
+  }
+
+  return (
+    <>
       <div className="breadcrumb__section">
-        <Breadcrumb breadcrumbItems={this.breadcrumbData}/>
+        <Breadcrumb breadcrumbItems={breadcrumbData} />
       </div>
       <main className="main__section restrict-width-inner">
         <div>
           {
-            this.state.users.map((user, index) => {
+            userList.users.map((user, index) => {
               return <UserCard key={index} {...user} />
             })
           }
         </div>
-        <Paginator first={this.state.first} totalRecords={this.state.totalItems} rows={this.state.rows} onPageChange={(e) => this.setState({first: e.first})}></Paginator>
+        {
+          (userList.users && userList.users.length > 0) &&
+          <Paginator first={userList.first} totalRecords={userList.totalItems} rows={userList.rows} onPageChange={(event) => pageChange(event)}></Paginator>
+        }
       </main>
-      </>
-    );
-  }
+    </>
+  );
 }

@@ -6,7 +6,7 @@ import {
     Redirect
 } from "react-router-dom";
 import { Header } from "./components/header/header.component";
-import UserList from "./pages/user/user-list/user-list.component";
+import { UserList } from "./pages/user/user-list/user-list.component";
 import { RoomList } from "./pages/room/room-list/room-list.component";
 import { Home } from "./pages/home/home.component";
 
